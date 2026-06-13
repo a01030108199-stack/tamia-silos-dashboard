@@ -236,13 +236,8 @@ if selected_files:
     filtered_df = filtered_df[filtered_df['الملف_المصدر'].isin(selected_files)]
 
 # 4. العنوان الرئيسي ولوحة الأرقام (Dashboard Header)
-col_l, col_c, col_r = st.columns([1, 4, 1])
-with col_l:
-    st.image("logo_ehoss.png", use_container_width=True)
-with col_c:
-    st.markdown("<h1 style='text-align: center; color: #d69e2e; font-weight: 700; margin-top: 15px; font-size: 32px;'>🌾 لوحة المؤشرات والتحليلات التفاعلية - صوامع طامية</h1>", unsafe_allow_html=True)
-with col_r:
-    st.image("logo_akram.png", use_container_width=True)
+st.image("premium_header_banner.png", use_container_width=True)
+st.markdown("<h1 style='text-align: center; color: #d69e2e; font-weight: 700; margin-top: 15px; font-size: 30px;'>🌾 لوحة المؤشرات والتحليلات التفاعلية - صوامع طامية</h1>", unsafe_allow_html=True)
 st.markdown("<hr style='margin-top: 10px; margin-bottom: 25px; border-color: #2d3748;'>", unsafe_allow_html=True)
 
 # صف الكروت الإحصائية (Metrics Section)
