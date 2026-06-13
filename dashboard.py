@@ -118,21 +118,17 @@ def load_data():
     # 2. إذا لم يكن الملف محلياً (تشغيل سحابي)، نقوم بالتحميل من رابط OneDrive/SharePoint المشترك
     try:
         import requests
-        sharepoint_url = "https://commercezuedu-my.sharepoint.com/:x:/g/personal/am_mohamed26_commerce_zu_edu_eg/IQAcTy0xJArZTKwhwPN8F9psAfK5z2SaSj-eu4uZADdvyk8?e=NJ8aa7"
+        download_url = "https://commercezuedu-my.sharepoint.com/:x:/g/personal/am_mohamed26_commerce_zu_edu_eg/IQAcTy0xJArZTKwhwPN8F9psAfK5z2SaSj-eu4uZADdvyk8?download=1"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+        }
         
-        session = requests.Session()
-        res = session.get(sharepoint_url, allow_redirects=True)
+        response = requests.get(download_url, headers=headers, allow_redirects=True)
         
-        # تحويل الرابط تلقائياً لرابط تحميل مباشر
-        download_url = res.url
-        if "download.aspx" not in download_url:
-            if "onedrive.aspx" in download_url:
-                download_url = download_url.replace("onedrive.aspx", "download.aspx")
-            else:
-                download_url = download_url + "&download=1" if "?" in download_url else download_url + "?download=1"
-                
-        response = session.get(download_url, cookies=session.cookies)
-        
+        # التحقق من أن الملف المسترجع هو ملف اكسيل حقيقي وليس صفحة خطأ HTML
+        if not response.content.startswith(b"PK\x03\x04"):
+            raise ValueError("محتوى الملف المسترجع من OneDrive غير صالح (ربما تم حظر الاتصال كـ Bot).")
+            
         # حفظ الملف في ملف مؤقت لقراءته
         temp_file = "temp_cloud_data.xlsx"
         with open(temp_file, "wb") as f:
