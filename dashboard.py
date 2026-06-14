@@ -24,15 +24,39 @@ st.markdown("""
         font-family: 'Cairo', sans-serif;
         text-align: right;
         direction: rtl;
+        background-color: #0b0f17 !important;
+        color: #ffffff;
     }
     
-    /* ستايل الكروت الإحصائية - مدمج ومرتب لمنع التغليف */
+    /* إزالة كل الفراغات والبادينج الأبيض في الأعلى والأسفل */
+    [data-testid="block-container"] {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        max-width: 100% !important;
+        background-color: #0b0f17 !important;
+    }
+    
+    /* إلغاء الفراغ بين البانر وعناصر التحكم والكروت */
+    [data-testid="stImage"] {
+        margin-bottom: -40px !important;
+        position: relative;
+        z-index: 1;
+    }
+    [data-testid="stHorizontalBlock"] {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* ستايل الكروت الإحصائية - مدمجة وبارزة بحدود ذهبية وخلفية شفافة */
     .metric-card {
-        background-color: #1e2430;
-        border: 1px solid #2d3748;
-        border-radius: 10px;
+        background-color: rgba(26, 32, 44, 0.85) !important;
+        backdrop-filter: blur(10px);
+        border: 2px solid #d69e2e !important;
+        border-radius: 12px;
         padding: 12px 8px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
         text-align: center;
         transition: transform 0.2s ease, border-color 0.2s ease;
         min-height: 110px;
@@ -41,8 +65,8 @@ st.markdown("""
         justify-content: center;
     }
     .metric-card:hover {
-        transform: translateY(-2px);
-        border-color: #d69e2e;
+        transform: translateY(-4px);
+        border-color: #f6ad55 !important;
     }
     .metric-title {
         color: #cbd5e0;
@@ -52,7 +76,7 @@ st.markdown("""
     }
     .metric-value {
         color: #ffffff;
-        font-size: 19px; /* تقليص الحجم لكي تتناسب الأرقام الكبيرة في سطر واحد */
+        font-size: 20px;
         font-weight: 700;
         font-family: monospace, sans-serif;
         letter-spacing: 0.5px;
@@ -65,7 +89,7 @@ st.markdown("""
     
     /* ستايل القائمة الجانبية وتحسين تباين النصوص */
     section[data-testid="stSidebar"] {
-        background-color: #11151c;
+        background-color: #0d1117;
         border-left: 1px solid #2d3748;
     }
     
@@ -88,9 +112,24 @@ st.markdown("""
     /* الحفاظ على نصوص حقول الإدخال (الخلفية البيضاء) داكنة ومقروءة */
     [data-testid="stSidebar"] input,
     [data-testid="stSidebar"] select,
-    [data-testid="stSidebar"] [role="button"],
     [data-testid="stSidebar"] [data-baseweb="select"] * {
         color: #1a202c !important;
+    }
+    
+    /* زر استرجاع البيانات الفخم باللون الذهبي البارز للتوضيح */
+    [data-testid="stSidebar"] button {
+        background-color: #d69e2e !important;
+        color: #0d1117 !important;
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 8px 16px !important;
+        transition: background-color 0.2s ease !important;
+    }
+    [data-testid="stSidebar"] button:hover {
+        background-color: #f6ad55 !important;
+        color: #0d1117 !important;
     }
     
     /* إخفاء الهيدر الافتراضي */
