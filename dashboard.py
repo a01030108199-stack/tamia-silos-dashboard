@@ -26,6 +26,17 @@ st.markdown("""
         direction: rtl;
         background-color: #0b0f17 !important;
         color: #ffffff;
+        font-weight: 700 !important; /* فرض خط عريض على كامل التطبيق */
+    }
+    
+    /* فرض الخط العريض على جميع النصوص والقوائم والبطاقات والجداول */
+    .stApp *, [data-testid="stSidebar"] *, .metric-card * {
+        font-weight: 700 !important;
+    }
+    
+    /* فرض الخط العريض بشكل خاص على الجداول التفاعلية */
+    [data-testid="stTable"] *, [data-testid="stDataFrame"] *, [data-testid="stDataFrame"] div, [data-testid="stDataFrame"] span {
+        font-weight: 700 !important;
     }
     
     /* إزالة كل الفراغات والبادينج الأبيض في الأعلى والأسفل */
@@ -71,20 +82,21 @@ st.markdown("""
     .metric-title {
         color: #cbd5e0;
         font-size: 13px;
-        font-weight: 600;
+        font-weight: 700 !important;
         margin-bottom: 6px;
     }
     .metric-value {
         color: #ffffff;
         font-size: 20px;
-        font-weight: 700;
-        font-family: monospace, sans-serif;
+        font-weight: 700 !important;
+        font-family: 'Cairo', monospace, sans-serif;
         letter-spacing: 0.5px;
     }
     .metric-subtitle {
         color: #a0aec0;
         font-size: 11px;
         margin-top: 4px;
+        font-weight: 700 !important;
     }
     
     /* ستايل القائمة الجانبية وتحسين تباين النصوص */
@@ -96,17 +108,19 @@ st.markdown("""
     /* إجبار عناوين ونصوص القائمة الجانبية على اللون الأبيض والرمادي الفاتح */
     [data-testid="stSidebar"] label {
         color: #f7fafc !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
         font-size: 14px !important;
     }
     [data-testid="stSidebar"] p,
     [data-testid="stSidebar"] span,
     [data-testid="stSidebar"] .stMarkdown p {
         color: #e2e8f0 !important;
+        font-weight: 700 !important;
     }
     [data-testid="stSidebar"] h2, 
     [data-testid="stSidebar"] h3 {
         color: #d69e2e !important;
+        font-weight: 700 !important;
     }
     
     /* الحفاظ على نصوص حقول الإدخال (الخلفية البيضاء) داكنة ومقروءة */
@@ -114,6 +128,7 @@ st.markdown("""
     [data-testid="stSidebar"] select,
     [data-testid="stSidebar"] [data-baseweb="select"] * {
         color: #1a202c !important;
+        font-weight: 700 !important;
     }
     
     /* زر استرجاع البيانات الفخم باللون الذهبي البارز للتوضيح */
@@ -356,7 +371,8 @@ with chart_col1:
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=True, gridcolor='#2d3748'),
-        margin=dict(l=20, r=20, t=10, b=20)
+        margin=dict(l=20, r=20, t=10, b=20),
+        font=dict(family="Cairo", size=12, color="#ffffff", weight="bold")
     )
     st.plotly_chart(fig_line, use_container_width=True)
 
@@ -381,7 +397,8 @@ with chart_col2:
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         margin=dict(l=10, r=10, t=10, b=10),
-        legend=dict(orientation="h", y=0)
+        legend=dict(orientation="h", y=0),
+        font=dict(family="Cairo", size=12, color="#ffffff", weight="bold")
     )
     st.plotly_chart(fig_pie, use_container_width=True)
 
@@ -409,7 +426,8 @@ with chart_col3:
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=True, gridcolor='#2d3748'),
         yaxis=dict(showgrid=False),
-        margin=dict(l=20, r=20, t=10, b=20)
+        margin=dict(l=20, r=20, t=10, b=20),
+        font=dict(family="Cairo", size=12, color="#ffffff", weight="bold")
     )
     st.plotly_chart(fig_bar, use_container_width=True)
 
@@ -432,16 +450,31 @@ with chart_col4:
         plot_bgcolor='rgba(0,0,0,0)',
         yaxis=dict(showgrid=True, gridcolor='#2d3748'),
         xaxis=dict(showgrid=False),
-        margin=dict(l=20, r=20, t=10, b=20)
+        margin=dict(l=20, r=20, t=10, b=20),
+        font=dict(family="Cairo", size=12, color="#ffffff", weight="bold")
     )
     st.plotly_chart(fig_file_bar, use_container_width=True)
 
 # 6. جدول البيانات التفاعلي بالكامل (Data Table)
 st.markdown("<h3 style='color: #d69e2e;'>📋 تفاصيل التوريدات المفلترة</h3>", unsafe_allow_html=True)
 
-# عرض الجدول بشكل احترافي مع إمكانية البحث والفلترة المباشرة
+# عرض الجدول بشكل احترافي مع إمكانية البحث والفلترة المباشرة وتنسيق الخط العريض والأرقام
+styled_df = filtered_df[['التاريخ', 'رقم المحضر', 'عدد', 'الكود', 'الاسم', '22.5', '23.0', '23.5', 'الكمية', 'القيمة', 'الصافي', 'الملف_المصدر']].style.format(
+    formatter={
+        'الكمية': '{:,.3f}',
+        'القيمة': '{:,.2f}',
+        'الصافي': '{:,.2f}',
+        '22.5': '{:,.3f}',
+        '23.0': '{:,.3f}',
+        '23.5': '{:,.3f}'
+    },
+    na_rep='-'
+).set_properties(**{
+    'font-weight': 'bold'
+})
+
 st.dataframe(
-    filtered_df[['التاريخ', 'رقم المحضر', 'عدد', 'الكود', 'الاسم', '22.5', '23.0', '23.5', 'الكمية', 'القيمة', 'الصافي', 'الملف_المصدر']],
+    styled_df,
     use_container_width=True,
     hide_index=True
 )
