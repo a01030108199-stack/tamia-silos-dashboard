@@ -147,6 +147,14 @@ st.markdown("""
         color: #0d1117 !important;
     }
     
+    /* خط فاصل رأسي بين الأعمدة في الشاشات الكبيرة */
+    @media (min-width: 768px) {
+        [data-testid="column"] + [data-testid="column"] {
+            border-right: 1px solid #2d3748 !important;
+            padding-right: 30px !important;
+        }
+    }
+    
     /* إخفاء الهيدر الافتراضي */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
@@ -351,7 +359,7 @@ with c5:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # 5. الرسوم البيانية (Charts Section)
-chart_col1, chart_col2 = st.columns([2, 1])
+chart_col1, chart_col2 = st.columns([2, 1], gap="large")
 
 with chart_col1:
     # أ) رسم منحنى التوريد اليومي التفاعلي
@@ -403,7 +411,7 @@ with chart_col2:
     st.plotly_chart(fig_pie, use_container_width=True)
 
 # الصف الثاني من الرسومات
-chart_col3, chart_col4 = st.columns([1, 1])
+chart_col3, chart_col4 = st.columns([1, 1], gap="large")
 
 with chart_col3:
     # ج) أكبر 10 موردين من حيث كمية التوريد (Bar Chart)
@@ -426,7 +434,7 @@ with chart_col3:
         plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=True, gridcolor='#2d3748'),
         yaxis=dict(showgrid=False),
-        margin=dict(l=20, r=20, t=10, b=20),
+        margin=dict(l=180, r=20, t=10, b=20),
         font=dict(family="Cairo", size=12, color="#ffffff", weight="bold")
     )
     st.plotly_chart(fig_bar, use_container_width=True)
