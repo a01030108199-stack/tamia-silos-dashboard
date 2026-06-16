@@ -365,6 +365,7 @@ with chart_col1:
     # أ) رسم منحنى التوريد اليومي التفاعلي
     st.markdown("<h3 style='color: #d69e2e;'>📈 حركة التوريد اليومية بالطن</h3>", unsafe_allow_html=True)
     daily_data = filtered_df.groupby('التاريخ')['الكمية'].sum().reset_index()
+    daily_data['التاريخ'] = pd.to_datetime(daily_data['التاريخ'])
     
     fig_line = px.area(
         daily_data, 
